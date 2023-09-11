@@ -54,7 +54,8 @@ def find_vertex(r):
     print("r size: ", r.right.size)
     print("l size: ", r.left.size)
 
-    if (r.right.size <= (r.size / 2)) and (r.left.size <= (r.size / 2)):
+    if (r.right != None) and (r.left != None):
+        if (r.right.size <= (r.size / 2)) and (r.left.size <= (r.size / 2)):
         return r
     else:
         if r.right != None:
