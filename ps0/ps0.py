@@ -56,7 +56,7 @@ def find_vertex(r):
 
     if (r.right != None) and (r.left != None):
         if (r.right.size <= (r.size / 2)) and (r.left.size <= (r.size / 2)):
-        return r
+            return r
     else:
         if r.right != None:
             find_vertex(r.right)
