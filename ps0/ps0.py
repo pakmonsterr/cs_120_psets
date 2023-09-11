@@ -51,21 +51,15 @@ def calculate_sizes(v):
 # Runtime: O(h)
 def find_vertex(r): 
 
-    #if (r.right != None) and (r.left != None):
-     #   if (r.right.size <= (r.size / 2)) and (r.left.size <= (r.size / 2)):
-      #      return r
-    
     r_size = r.right.size if r.right else 0
     l_size = r.left.size if r.left else 0
 
-    print(r.size, ", ", r_size, ", ", l_size)
-
     if (r_size <= (r.size / 2)) and (l_size <= (r.size / 2)):
-        print("found: ", r.size)
-    elif (r.right != None) and (r.right.size > 1):
-        find_vertex(r.right)
-    elif (r.left != None) and (r.left.size > 1):
-        find_vertex(r.left)
-
-    return r
+        print("reached end with: ", r.size, ", ", r_size, ", ", l_size)
+        return r
+    else:
+        if (r.right != None):
+            find_vertex(r.right)
+        if (r.left != None):
+            find_vertex(r.left)
     
