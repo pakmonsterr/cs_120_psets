@@ -50,16 +50,15 @@ def calculate_sizes(v):
 # ... in disjoint trees that all have at most n/2 vertices
 # Runtime: O(h)
 def find_vertex(r): 
-    print(r.key)
+    print("n: ", r.size)
+    print("r size: ", r.right.size)
+    print("l size: ", r.left.size)
 
-    if r.left != None:
-        print(calculate_sizes(r.left) - 1)
-        find_vertex(r.left)
-
-    if r.right != None:
-        print(calculate_sizes(r.right) - 1)
-        find_vertex(r.right)
-
-    
-    return r
+    if (r.right.size <= (r.size / 2)) and (r.left.size <= (r.size / 2)):
+        return r
+    else:
+        if r.right != None:
+            find_vertex(r.right)
+        if r.left != None:
+            find_vertex(r.left)
     
