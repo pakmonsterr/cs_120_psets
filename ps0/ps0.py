@@ -51,15 +51,24 @@ def calculate_sizes(v):
 # Runtime: O(h)
 def find_vertex(r): 
 
-    r_size = r.right.size if r.right else 0
-    l_size = r.left.size if r.left else 0
+    arr = [r]
 
-    if (r_size <= (r.size / 2)) and (l_size <= (r.size / 2)):
-        print("reached end with: ", r.size, ", ", r_size, ", ", l_size)
-        return r
-    else:
-        if (r.right != None):
-            find_vertex(r.right)
-        if (r.left != None):
-            find_vertex(r.left)
+    v_find(r, r.size, arr)
+
+    return arr[0];
     
+def v_find(v, n, array):
+    r_size = v.right.size if v.right else 0
+    l_size = v.left.size if v.left else 0
+
+    if (r_size <= (n / 2)) and (l_size <= (n / 2)):
+        array[0] = v
+    else:
+        if (v.right != None):
+            print("searching R")
+            v_find(v.right, n, array)
+        elif (v.left != None):
+            print("searching L")
+            v_find(v.left, n, array)
+
+
