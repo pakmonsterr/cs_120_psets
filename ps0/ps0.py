@@ -65,10 +65,8 @@ def v_find(v, n, array):
         array[0] = v
     else:
         if (v.right != None):
-            print("searching R")
             v_find(v.right, n, array)
         elif (v.left != None):
-            print("searching L")
             v_find(v.left, n, array)
 
 
