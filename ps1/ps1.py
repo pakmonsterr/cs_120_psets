@@ -81,15 +81,17 @@ def radixSort(univsize, base, arr):
     k = math.ceil(math.log(univsize) / math.log(base))
     n = len(arr)
 
-    for i in range(n - 1): 
-        arr[i] = (arr[i][0], BC(arr[i][0], base, k))
+    arr_prime = [None] * n
 
-    for j in range(k - 1):
-        for i in range(n - 1):
-            arr[i] = (arr[i][1][j], arr[i][1])
-        print("ns: ", arr)
-        arr = countSort(univsize, arr)
-        print("st: ", arr)
+    for i in range(n): 
+        arr_prime[i] = 'K', (arr[i][1], BC(arr[i][0], base, k))
+    
+    for j in range(k):
+        for i in range(n):
+            arr_prime[i] = arr_prime[i][1][1][j-1], ('V', 'Vp')
+
+    print(arr_prime)
+
     """
     for i in range(n - 1):
         # set K_i to 0
