@@ -77,5 +77,17 @@ def BC(n, b, k):
     return digits
 
 def radixSort(univsize, base, arr):
-    """TODO: Implement Radix Sort using BC and countSort"""
+
+    k = math.ceil(math.log(univsize) / math.log(base))
+    n = len(arr)
+
+    for i in range(n - 1): 
+        arr[i] = (arr[i][0], BC(arr[i][0], base, k))
+
+    for j in range(k - 1):
+        for i in range(n - 1):
+            #arr[i] = (arr[i][1][j]
+            print(arr[i][1][j])
+
+
     return [] 
