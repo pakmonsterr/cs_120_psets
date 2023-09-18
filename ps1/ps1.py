@@ -86,8 +86,17 @@ def radixSort(univsize, base, arr):
 
     for j in range(k - 1):
         for i in range(n - 1):
-            #arr[i] = (arr[i][1][j]
-            print(arr[i][1][j])
+            arr[i] = (arr[i][1][j], arr[i][1])
+        print("ns: ", arr)
+        arr = countSort(univsize, arr)
+        print("st: ", arr)
+    """
+    for i in range(n - 1):
+        # set K_i to 0
+        arr[i] = 
+        for j in range(k - 1):
+    """
+            
 
 
     return [] 
