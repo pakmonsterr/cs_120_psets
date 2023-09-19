@@ -4,7 +4,7 @@ import time
 import itertools 
 import sys 
 import math
-#import matplotlib.pyplot as plt 
+import matplotlib.pyplot as plt 
 
 """
 After completing the functions for countSort and RadixSort, run this file to generate 
