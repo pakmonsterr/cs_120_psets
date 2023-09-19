@@ -66,11 +66,12 @@ def countSort(univsize, arr):
     return sortedArr
 
 def BC(n, b, k):
+    print(n, b, k)
     if b < 2:
         raise ValueError()
     digits = []
     for i in range(k):
-        digits.append(n % b)
+        digits.append(int(n % b))
         n = n // b
     if n > 0:
         raise ValueError()
@@ -78,27 +79,32 @@ def BC(n, b, k):
 
 def radixSort(univsize, base, arr):
 
-    k = math.ceil(math.log(univsize) / math.log(base))
+    k = math.ceil(math.log2(univsize) / math.log2(base))
     n = len(arr)
 
-    arr_prime = [None] * n
+    arr_prime = []
 
     for i in range(n): 
-        arr_prime[i] = 'K', (arr[i][1], BC(arr[i][0], base, k))
-    
+        Kp = ''
+        K_i = arr[i][0]
+        Vp = BC(K_i, base, k)
+        print('made it')
+        # arr_prime[i] = (Kp, Vp)
+        arr_prime.append((Kp, Vp))
+        print(arr_prime)
+
     for j in range(k):
         for i in range(n):
-            arr_prime[i] = arr_prime[i][1][1][j-1], ('V', 'Vp')
+            Vp = arr_prime[i][1]
+            Kp = arr_prime[i][1][j]
+            arr_prime[i] = Kp, Vp
+        arr_prime = countSort(base, arr_prime)
 
-    print(arr_prime)
+    for i in range(n):
+        for j in range(k):
+            Vp = arr_prime[i][1]
+            Kp += Vp[j] * math.pow(base, j)
+            arr[i] = Kp, arr[i][1]
+        
 
-    """
-    for i in range(n - 1):
-        # set K_i to 0
-        arr[i] = 
-        for j in range(k - 1):
-    """
-            
-
-
-    return [] 
+    return arr
