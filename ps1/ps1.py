@@ -82,27 +82,26 @@ def radixSort(univsize, base, arr):
     k = math.ceil(math.log2(univsize) / math.log2(base))
     n = len(arr)
 
+    b_pows = [base ** j for j in range(k)]
+
     for i in range(n): 
         K_i = arr[i][0]
         V_ip = BC(K_i, base, k)
-        arr[i] = (K_i, V_ip)
-        #print('array: ', arr)
+        O = K_i
+        arr[i] = (K_i, V_ip, O)
     
     for j in range(k):
         for i in range(n):
             V_ip = arr[i][1]
             K_ip = V_ip[j]
-            #print('V_ip[j]: ', V_ip[j])
-            arr[i] = (K_ip, V_ip)
+            O = arr[i][2]
+            arr[i] = (K_ip, V_ip, O)
         arr = countSort(base, arr)
-        #print('sorted array: ', arr)
     
     for i in range(n):
-        for j in range(k):
-            V_ip = arr[i][1]
-            K_i += V_ip[j] * math.pow(base, j)
-            arr[i] = (K_i, V_ip)
+        V_ip = arr[i][1]
+        O = arr[i][2]
+        K_i = O
+        arr[i] = (K_i, V_ip, O)
     
-        
-
     return arr
