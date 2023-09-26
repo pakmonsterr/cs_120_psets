@@ -160,8 +160,8 @@ class BinarySearchTree:
                 B = Y.left
 
                 self.left = Y
-                Y.right = X
-                X.left = B
+                Y.left = X
+                X.right = B
 
         return self
 
