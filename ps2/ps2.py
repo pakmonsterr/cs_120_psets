@@ -137,6 +137,7 @@ class BinarySearchTree:
                 self.right = Y
                 Y.right = X
                 X.left = B
+
             elif (child_side == 'L'):
                 X = self.left
                 Y = X.left
@@ -145,6 +146,7 @@ class BinarySearchTree:
                 self.left = Y
                 Y.right = X
                 X.left = B
+
         elif (direction == 'L'):
             if (child_side == 'R'):
                 X = self.right
@@ -154,6 +156,7 @@ class BinarySearchTree:
                 self.right = Y
                 Y.left = X
                 X.right = B
+
             elif (child_side == 'L'):
                 X = self.left
                 Y = X.right
@@ -162,6 +165,9 @@ class BinarySearchTree:
                 self.left = Y
                 Y.left = X
                 X.right = B
+
+        Y.size = X.size
+        X.size = (X.right.size if X.right != None else 0) + (X.left.size if X.left != None else 0) + 1
 
         return self
 
