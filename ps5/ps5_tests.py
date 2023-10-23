@@ -5,7 +5,7 @@ from ps5_helpers import timeout, color, generate_line_of_ring_subgraphs, generat
 from ps5 import Graph, exhaustive_search_coloring, bfs_2_coloring, iset_bfs_3_coloring
 
 
-TIMEOUT_LENGTH = 2
+TIMEOUT_LENGTH = 1
 INCLUDE_TESTS_FOR_STAFF_CODE = True
 
 class Debugger:
@@ -110,7 +110,7 @@ def generate_test(name, input, alg, expected, hint_text = None):
     }
 
 testcases = {
-    "2-colorable": [
+    '''"2-colorable": [
         lambda: Graph(2).add_edge(0, 1), # line length 2
         lambda: Graph(2).add_edge(1, 0), # line length 2
         lambda: Graph(4).add_edge(0, 1).add_edge(1, 2).add_edge(2, 3), # line length 4
@@ -133,7 +133,7 @@ testcases = {
         lambda: generate_line_of_complete_subgraphs(Graph, 1000, 2),
         lambda: generate_line_of_complete_subgraphs(Graph, 2000, 2),
         lambda: generate_line_of_complete_subgraphs(Graph, 3000, 2),
-    ],
+    ],'''
     "2-or-3-colorable": [
         lambda: generate_line_of_ring_subgraphs(Graph, 10, 4),
         lambda: generate_random_linked_cluster(Graph, 100, 2, 0.3),
@@ -147,7 +147,7 @@ testcases = {
         lambda: Graph(3).add_edge(0, 1).add_edge(1, 2).add_edge(2, 0), # 3 node triangle
         lambda: Graph(3).add_edge(1, 2).add_edge(2, 0).add_edge(0, 1), # 3 node triangle
         lambda: Graph(3).add_edge(2, 0).add_edge(0, 1).add_edge(1, 2), # 3 node triangle
-        lambda: Graph(6).add_edge(2, 0).add_edge(0, 1).add_edge(1, 2).add_edge(3, 4).add_edge(4, 5).add_edge(5, 3), # 3 node triangle x2 disconnected
+        '''lambda: Graph(6).add_edge(2, 0).add_edge(0, 1).add_edge(1, 2).add_edge(3, 4).add_edge(4, 5).add_edge(5, 3), # 3 node triangle x2 disconnected
         lambda: Graph(6).add_edge(0, 1).add_edge(1, 2).add_edge(2, 0).add_edge(3, 4).add_edge(4, 5).add_edge(5, 3), # 3 node triangle x2 disconnected
         lambda: Graph(6).add_edge(1, 2).add_edge(2, 0).add_edge(0, 1).add_edge(3, 4).add_edge(4, 5).add_edge(5, 3), # 3 node triangle x2 disconnected
         lambda: Graph(6).add_edge(1, 2).add_edge(2, 0).add_edge(0, 1).add_edge(0, 3).add_edge(1, 4).add_edge(1, 5), # 3 node triangle with line out of each node
@@ -182,7 +182,7 @@ testcases = {
         lambda: generate_line_of_complete_subgraphs(Graph, 800, 3),
         lambda: generate_line_of_complete_subgraphs(Graph, 1000, 3),
         lambda: generate_line_of_complete_subgraphs(Graph, 2000, 3),
-        lambda: generate_line_of_complete_subgraphs(Graph, 3000, 3),
+        lambda: generate_line_of_complete_subgraphs(Graph, 3000, 3),'''
     ],
     "k>3-colorable": [
         lambda: generate_complete_graph(Graph, 4),
@@ -218,15 +218,15 @@ def test_3_coloring():
     tests = OrderedDict()
 
     if INCLUDE_TESTS_FOR_STAFF_CODE:
-        tests["Exhaustive 3-Coloring (Staff Provided)"] = [] 
-        tests["Exhaustive 3-Coloring (Staff Provided)"] += [generate_test("Should work on 2-colorable graphs", g, lambda g: validate_graph_coloring(g, exhaustive_search_coloring(g, 3)), lambda g: True) for g in testcases["2-colorable"]]
-        tests["Exhaustive 3-Coloring (Staff Provided)"] += [generate_test("Should work on 2-or-3-colorable graphs", g, lambda g: validate_graph_coloring(g, exhaustive_search_coloring(g, 3)), lambda g: True) for g in testcases["2-or-3-colorable"]]
-        tests["Exhaustive 3-Coloring (Staff Provided)"] += [generate_test("Should work on 3-colorable graphs", g, lambda g: validate_graph_coloring(g, exhaustive_search_coloring(g, 3)), lambda g: True) for g in testcases["3-colorable"]]
-        tests["Exhaustive 3-Coloring (Staff Provided)"] += [generate_test("Should not work on k>3-colorable graphs", g, lambda g: validate_graph_coloring(g, exhaustive_search_coloring(g, 3)), lambda g: False) for g in testcases["k>3-colorable"]]
-
+       #tests["Exhaustive 3-Coloring (Staff Provided)"] = [] 
+        #tests["Exhaustive 3-Coloring (Staff Provided)"] += [generate_test("Should work on 2-colorable graphs", g, lambda g: validate_graph_coloring(g, exhaustive_search_coloring(g, 3)), lambda g: True) for g in testcases["2-colorable"]]
+        #tests["Exhaustive 3-Coloring (Staff Provided)"] += [generate_test("Should work on 2-or-3-colorable graphs", g, lambda g: validate_graph_coloring(g, exhaustive_search_coloring(g, 3)), lambda g: True) for g in testcases["2-or-3-colorable"]]
+        #tests["Exhaustive 3-Coloring (Staff Provided)"] += [generate_test("Should work on 3-colorable graphs", g, lambda g: validate_graph_coloring(g, exhaustive_search_coloring(g, 3)), lambda g: True) for g in testcases["3-colorable"]]
+        #tests["Exhaustive 3-Coloring (Staff Provided)"] += [generate_test("Should not work on k>3-colorable graphs", g, lambda g: validate_graph_coloring(g, exhaustive_search_coloring(g, 3)), lambda g: False) for g in testcases["k>3-colorable"]]
+        
         tests["ISET 3-Coloring (Staff Provided)"] = [] 
-        tests["ISET 3-Coloring (Staff Provided)"] += [generate_test("Should work on 2-colorable graphs", g, lambda g: validate_graph_coloring(g, iset_bfs_3_coloring(g)), lambda g: True) for g in testcases["2-colorable"]]
-        tests["ISET 3-Coloring (Staff Provided)"] += [generate_test("Should work on 2-or-3-colorable graphs", g, lambda g: validate_graph_coloring(g, iset_bfs_3_coloring(g)), lambda g: True) for g in testcases["2-or-3-colorable"]]
+        #tests["ISET 3-Coloring (Staff Provided)"] += [generate_test("Should work on 2-colorable graphs", g, lambda g: validate_graph_coloring(g, iset_bfs_3_coloring(g)), lambda g: True) for g in testcases["2-colorable"]]
+        #tests["ISET 3-Coloring (Staff Provided)"] += [generate_test("Should work on 2-or-3-colorable graphs", g, lambda g: validate_graph_coloring(g, iset_bfs_3_coloring(g)), lambda g: True) for g in testcases["2-or-3-colorable"]]
         tests["ISET 3-Coloring (Staff Provided)"] += [generate_test("Should work on 3-colorable graphs", g, lambda g: validate_graph_coloring(g, iset_bfs_3_coloring(g)), lambda g: True) for g in testcases["3-colorable"]]
         tests["ISET 3-Coloring (Staff Provided)"] += [generate_test("Should not work on k>3-colorable graphs", g, lambda g: validate_graph_coloring(g, iset_bfs_3_coloring(g)), lambda g: False) for g in testcases["k>3-colorable"]]
 

@@ -1,4 +1,5 @@
 from itertools import product, combinations
+import math
 
 '''
 Before you start: Read the README and the Graph implementation below.
@@ -126,12 +127,52 @@ def bfs_2_coloring(G, precolored_nodes=None):
 
         if len(precolored_nodes) == G.N:
             return G.colors
+
+    #use BFS to get a vertex order starting from vertex 0
+    V = BFS_ordering(G, 0)
+    G.colors[0] = 0 
+
+    for i in range(G.N):
+        if i not in V:
+            V = V + BFS_ordering(G, i)
+            G.colors[i] = 0
+
+    color_tree(G, V)
     
-    # TODO: Complete this function by implementing two-coloring using the colors 0 and 1.
-    # If there is no valid coloring, reset all the colors to None using G.reset_colors()
-    
-    G.reset_colors()
-    return None
+    if G.is_graph_coloring_valid():
+        return G.colors
+    else:
+        G.reset_colors()
+
+def color_tree(G, V):
+    for i in V:
+        for j in range(i):
+            if i in G.edges[j]:
+                G.colors[i] = 0 if (G.colors[j] == 1) else 1
+
+def BFS_ordering(G, s):
+    S = {s}
+    F = {s}
+    ordered_verts = [s]
+    V = set()
+
+    for v in range(G.N):
+        V.add(v)
+
+    while (len(F) != 0):
+        F_new = set()
+        for v in (V - S):
+            for u in F:
+                if v in G.edges[u]:
+                    F_new.add(v)
+                    if v not in ordered_verts:
+                        ordered_verts.append(v)
+        
+        S = S.union(F)
+        F = F_new
+
+    return ordered_verts
+
 
 '''
     Part B: Implement is_independent_set.
@@ -140,9 +181,13 @@ def bfs_2_coloring(G, precolored_nodes=None):
 # Given an instance of the Graph class G and a subset of precolored nodes,
 # Checks if subset is an independent set in G 
 def is_independent_set(G, subset):
-    # TODO: Complete this function
-
+    for v in subset:
+        for u in G.edges[v]:
+            if u in subset:
+                return False
+            
     return True
+    
 
 '''
     Part C: Implement the 3-coloring algorithm from the sender receiver exercise.
@@ -168,7 +213,20 @@ def is_independent_set(G, subset):
 # If successful, modifies G.colors and returns the coloring.
 # If no coloring is possible, resets all of G's colors to None and returns None.
 def iset_bfs_3_coloring(G):
-    # TODO: Complete this function.
+    
+    # get all subsets of size at most n/3
+    for i in range(math.ceil(G.N / 3)):
+        for subset in combinations(range(G.N),i):
+
+            if i == 2:
+                G.color[0] = 0
+                G.color[1] = 1
+                G.color[2] = 2
+
+            if is_independent_set(G, subset):
+                f_s = bfs_2_coloring(G, subset)
+                if f_s != None:
+                    return f_s
 
     G.reset_colors()
     return None
