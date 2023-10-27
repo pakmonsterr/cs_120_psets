@@ -128,42 +128,28 @@ def bfs_2_coloring(G, precolored_nodes=None):
         if len(precolored_nodes) == G.N:
             return G.colors
 
-    #use BFS to get a vertex order starting from vertex 0
-    V = BFS_ordering(G, 0)
-    G.colors[0] = 0 
-
     for i in range(G.N):
-        if i not in V:
-            V = V + BFS_ordering(G, i)
+        if i not in visited:
             G.colors[i] = 0
-
-    color_tree(G, V)
+            visited = visited.union(BFS_ordering(G, i, visited))
     
     if G.is_graph_coloring_valid():
         return G.colors
     else:
         G.reset_colors()
 
-def color_tree(G, V):
-    for i in V:
-        for j in range(i):
-            if i in G.edges[j]:
-                G.colors[i] = 0 if (G.colors[j] == 1) else 1
-
-def BFS_ordering(G, s):
+def BFS_ordering(G, s, visited):
     S = {s}
     F = {s}
     ordered_verts = [s]
-    V = set()
-
-    for v in range(G.N):
-        V.add(v)
 
     while (len(F) != 0):
         F_new = set()
-        for v in (V - S):
+        for v in (visited - S):
             for u in F:
                 if v in G.edges[u]:
+                    if G.colors[u] != 2:
+                        G.colors[u] = 1 if G.colors[v] == 0 else 0
                     F_new.add(v)
                     if v not in ordered_verts:
                         ordered_verts.append(v)
@@ -215,13 +201,8 @@ def is_independent_set(G, subset):
 def iset_bfs_3_coloring(G):
     
     # get all subsets of size at most n/3
-    for i in range(math.ceil(G.N / 3)):
+    for i in range(math.ceil(G.N / 3) + 1):
         for subset in combinations(range(G.N),i):
-
-            if i == 2:
-                G.color[0] = 0
-                G.color[1] = 1
-                G.color[2] = 2
 
             if is_independent_set(G, subset):
                 f_s = bfs_2_coloring(G, subset)
